@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Card from './Card';
-// import { colors, figures } from '../config/constants';
 
 const SetWrap = styled.div`
   display: flex;
@@ -13,9 +12,8 @@ const SetWrap = styled.div`
 `;
 
 function Field({ myStore }) {
-  console.log(myStore);
-  const mapCards = myStore.cardsList.map((item) => (
-    <Card key={item.id} id={item.id} />
+  const mapCards = myStore.cardsReducer.cardsOrder.map((item) => (
+    <Card key={item} id={item} />
   ));
   return (
     <SetWrap className="field">
@@ -25,15 +23,9 @@ function Field({ myStore }) {
 }
 Field.propTypes = {
   myStore: PropTypes.shape({
-    cardsList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        color: PropTypes.string.isRequired,
-        figure: PropTypes.string.isRequired,
-        pairId: PropTypes.number.isRequired,
-        status: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    cardsReducer: PropTypes.shape({
+      cardsOrder: PropTypes.arrayOf(PropTypes.number).isRequired,
+    }),
   }).isRequired,
 };
 

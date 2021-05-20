@@ -1,2 +1,2 @@
-export const FLIP_CARD = 'FLIP_CARD';
+export const FLIP_FIRST_CARD = 'FLIP_FIRST_CARD';
 export default null;

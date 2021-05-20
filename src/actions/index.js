@@ -1,9 +1,9 @@
-import {FLIP_CARD} from './actionTypes';
+import { FLIP_FIRST_CARD } from './actionTypes';
 
-export const flipCard = (content) => ({
-  type: FLIP_CARD,
+export const flipFirstCard = (content) => ({
+  type: FLIP_FIRST_CARD,
   payload: {
-    content,
+    id: content.id,
   },
 });
 export default null;
