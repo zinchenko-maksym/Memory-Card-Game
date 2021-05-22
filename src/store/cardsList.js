@@ -4,21 +4,21 @@ const initialState = {
       id: 0,
       color: 'blue',
       figure: 'circle',
-      pairId: 0,
+      pairId: 2,
       status: 'default',
     },
     {
       id: 1,
       color: 'blue',
       figure: 'circle',
-      pairId: 0,
+      pairId: 1,
       status: 'default',
     },
     {
       id: 2,
       color: 'blue',
       figure: 'circle',
-      pairId: 0,
+      pairId: 2,
       status: 'default',
     },
     {
@@ -32,7 +32,7 @@ const initialState = {
       id: 4,
       color: 'blue',
       figure: 'circle',
-      pairId: 0,
+      pairId: 1,
       status: 'default',
     },
     {
@@ -54,7 +54,6 @@ const initialState = {
 const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'FLIP_FIRST_CARD': {
-      console.log(21);
       const { id } = action.payload;
       return {
         ...state,
@@ -64,16 +63,36 @@ const cardsReducer = (state = initialState, action) => {
         },
       };
     }
-    case 'ADD_BOARDS_ARRAY':
-      return [
+    case 'FLIP_SECOND_CARD': {
+      const { id } = action.payload;
+      return {
         ...state,
-        ...action.payload,
-      ];
-    case 'DELETE_BOARD':
-      return [...state];
-
+        flippedCards: {
+          first: state.flippedCards.first,
+          second: id,
+        },
+      };
+    }
+    case 'VANISH_CARDS':
+      return {
+        ...state,
+        vanishedCards: [
+          ...state.vanishedCards, state.flippedCards.first, state.flippedCards.second,
+        ],
+        flippedCards: {
+          first: null,
+          second: null,
+        },
+      };
+    case 'FLIP_CARDS_BACK':
+      return {
+        ...state,
+        flippedCards: {
+          first: null,
+          second: null,
+        },
+      };
     default:
-      console.log(2);
       return state;
   }
 };
