@@ -1,5 +1,11 @@
 import {
-  FLIP_FIRST_CARD, FLIP_SECOND_CARD, VANISH_CARDS, FLIP_CARDS_BACK, CHANGE_SETTINGS, SET_CARDS_LIST,
+  FLIP_FIRST_CARD,
+  FLIP_SECOND_CARD,
+  VANISH_CARDS,
+  FLIP_FIRST_CARD_BACK,
+  FLIP_SECOND_CARD_BACK,
+  CHANGE_SETTINGS,
+  SET_CARDS_LIST,
 } from './actionTypes';
 
 export const flipFirstCard = (content) => ({
@@ -22,8 +28,14 @@ export const vanishCards = (content) => ({
     ...content,
   },
 });
-export const flipCardsBack = (content) => ({
-  type: FLIP_CARDS_BACK,
+export const flipFirstCardBack = (content) => ({
+  type: FLIP_FIRST_CARD_BACK,
+  payload: {
+    ...content,
+  },
+});
+export const flipSecondCardBack = (content) => ({
+  type: FLIP_SECOND_CARD_BACK,
   payload: {
     ...content,
   },

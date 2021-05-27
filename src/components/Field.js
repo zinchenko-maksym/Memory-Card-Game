@@ -13,9 +13,9 @@ const SetWrap = styled.div`
 `;
 
 function Field({ myStore }) {
-  const mapCards = myStore.cardsReducer.cardsList.map((item) => (
-    <Card key={item.id} id={item.id} pairId={item.pairId} />
-  ));
+  const mapCards = myStore.cardsReducer.cardsList.map(
+    (item) => <Card key={item.key} id={item.id} pairId={item.pairId} />,
+  );
 
   return (
     <SetWrap className="field">

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  flipFirstCard, flipSecondCard, vanishCards, flipCardsBack,
+  flipFirstCard, flipSecondCard, vanishCards, flipFirstCardBack, flipSecondCardBack,
 } from '../actions';
 
 const CardWrap = styled.div`
@@ -15,7 +15,6 @@ const CardWrap = styled.div`
   margin: 10px;
 `;
 const CardBack = styled.div`
-  position: absolute;
   background-color: ${(props) => props.theme.pastelGreen};
   width: 100%;
   height: 100%;
@@ -24,6 +23,7 @@ const CardBack = styled.div`
   transform-style: preserve-3d;
 `;
 const CardFront = styled.div`
+  position: absolute;
   display: ${(props) => (props.isVanished ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
@@ -36,13 +36,20 @@ const CardFront = styled.div`
 `;
 
 function Card({
-  myStore, id, onFirstCardFlip, onSecondCardFlip, onVanishCards, onFlipCardsBack, pairId,
+  myStore,
+  id,
+  onFirstCardFlip,
+  onSecondCardFlip,
+  onVanishCards,
+  onFlipFirstCardBack,
+  onFlipSecondCardBack,
+  pairId,
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isVanished, setIsVanished] = useState(false);
   function flipCard() {
     myStore.cardsReducer.cardsList.find((item) => {
-      if (item.id === id && !isFlipped) {
+      if (item.id === id && id !== myStore.cardsReducer.flippedCards.first) {
         if (myStore.cardsReducer.flippedCards.first === null) {
           setIsFlipped(true);
           onFirstCardFlip({ id });
@@ -58,7 +65,7 @@ function Card({
   useEffect(() => {
     const firstCardId = myStore.cardsReducer.flippedCards.first;
     const secondCardId = myStore.cardsReducer.flippedCards.second;
-    if (secondCardId !== null && secondCardId !== undefined) {
+    if (secondCardId !== null && secondCardId !== null) {
       const firstCardPairId = myStore.cardsReducer.cardsList.filter(
         (card) => card.id === firstCardId,
       )[0].pairId;
@@ -70,10 +77,18 @@ function Card({
       }
       if (firstCardPairId !== secondCardPairId
         && !myStore.cardsReducer.vanishedCards.includes(id)) {
-        onFlipCardsBack();
-        setTimeout(() => {
-          setIsFlipped(false);
-        }, 1000);
+        if (firstCardId === id) {
+          onFlipFirstCardBack();
+          setTimeout(() => {
+            setIsFlipped(false);
+          }, 1000);
+        }
+        if (secondCardId === id) {
+          onFlipSecondCardBack();
+          setTimeout(() => {
+            setIsFlipped(false);
+          }, 1000);
+        }
       }
     }
   }, [myStore.cardsReducer.flippedCards]);
@@ -88,10 +103,10 @@ function Card({
 
   return (
     <CardWrap>
-      <CardBack isFlipped={isFlipped} isVanished={isVanished} onClick={flipCard} />
       <CardFront isFlipped={isFlipped} isVanished={isVanished}>
         {pairId}
       </CardFront>
+      <CardBack isFlipped={isFlipped} isVanished={isVanished} onClick={flipCard} />
     </CardWrap>
   );
 }
@@ -119,7 +134,8 @@ Card.propTypes = {
   onFirstCardFlip: PropTypes.func.isRequired,
   onSecondCardFlip: PropTypes.func.isRequired,
   onVanishCards: PropTypes.func.isRequired,
-  onFlipCardsBack: PropTypes.func.isRequired,
+  onFlipFirstCardBack: PropTypes.func.isRequired,
+  onFlipSecondCardBack: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -130,6 +146,7 @@ export default connect(
     onFirstCardFlip: flipFirstCard,
     onSecondCardFlip: flipSecondCard,
     onVanishCards: vanishCards,
-    onFlipCardsBack: flipCardsBack,
+    onFlipFirstCardBack: flipFirstCardBack,
+    onFlipSecondCardBack: flipSecondCardBack,
   },
 )(Card);

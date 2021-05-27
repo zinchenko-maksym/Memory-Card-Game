@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -14,7 +13,7 @@ const NewGameButtonWrap = styled.div`
 `;
 
 function Settings({
-  myStore, onSetCardsList, difficultyIndex, themeIndex,
+  myStore, onSetCardsList, difficultyIndex,
 }) {
   function shuffleArray(array) {
     const arrayClone = [...array];
@@ -27,10 +26,13 @@ function Settings({
   function startNewGame() {
     const difficulty = myStore.settingsReducer.difficulties[difficultyIndex];
     const cardsSet = [];
-    for (let i = 0; i < difficulty; i += 1) {
-      const pairId = i % (difficulty / 2);
+    for (let i = 0; i < difficulty; i += 2) {
+      const pairId = Math.random();
       cardsSet.push({
-        id: i, key: i, pairId, figure: 'a', status: 'default',
+        id: Math.random(), key: Math.random(), pairId, figure: 'a', status: 'default',
+      }); // Put Image property
+      cardsSet.push({
+        id: Math.random(), key: Math.random(), pairId, figure: 'a', status: 'default',
       }); // Put Image property
     }
     const shuffledCards = shuffleArray(cardsSet);
@@ -58,12 +60,10 @@ Settings.propTypes = {
     }),
     settingsReducer: PropTypes.shape({
       difficulties: PropTypes.arrayOf(PropTypes.number).isRequired,
-      themes: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
   }).isRequired,
   onSetCardsList: PropTypes.func.isRequired,
   difficultyIndex: PropTypes.number.isRequired,
-  themeIndex: PropTypes.number.isRequired,
 };
 
 export default connect(
