@@ -48,7 +48,6 @@ const initialState = {
     second: null,
   },
   vanishedCards: [],
-  cardsOrder: [2, 5, 1, 0, 3, 4],
 };
 
 const cardsReducer = (state = initialState, action) => {
@@ -91,6 +90,11 @@ const cardsReducer = (state = initialState, action) => {
           first: null,
           second: null,
         },
+      };
+    case 'SET_CARDS_LIST':
+      return {
+        ...state,
+        cardsList: action.payload.cards,
       };
     default:
       return state;

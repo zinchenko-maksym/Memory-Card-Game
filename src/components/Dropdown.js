@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -7,25 +6,27 @@ import useClickOutside from '../hooks/useClickOutside';
 const DropdownWrap = styled.div`
   display: flex;
   flex-flow: column wrap;
-  justify-content: space-between;
   width: 200px;
-  font-size: 1em;
-  position: relative;
   cursor: pointer;
   user-select: none;
+  margin: 10px 0;
+  box-sizing: border-box;
 `;
 const CurrentOptionWrap = styled.span`
   display: flex;
-  padding-left: 10px;
+  padding: 0 10px;
   background-color: gray;
+  height: 20px;
 `;
 const OptionsListWrap = styled.div`
-  display: ${(props) => (props.listToggle ? 'flex' : 'none')};
+  height: ${(props) => (props.listToggle ? props.optionsHeight : '0')};
+  overflow: hidden;
+  transition: height 0.4s;
   flex-flow: column;
-  position: absolute;
-  margin: 20px 8px;
+  margin: 10px 8px;
 `;
 const OptionsElementWrap = styled.div`
+height: 20px;
 text-align: left;
 `;
 const OptionArrowDownWrap = styled.div`
@@ -53,6 +54,7 @@ function Dropdown({ menuElements, selectedIndex, changeSelectedItem }) {
   function onChangeSelectedItem(item, intemIndex) {
     changeSelectedItem(intemIndex);
     setCurrentOption(item);
+    onClickOutside();
   }
 
   const mapMenuElements = menuElements.map(
@@ -69,7 +71,7 @@ function Dropdown({ menuElements, selectedIndex, changeSelectedItem }) {
         <OptionArrowDownWrap listToggle={listToggle}> &#x25BC; </OptionArrowDownWrap>
         <OptionArrowUpWrap listToggle={listToggle}> &#x25B2; </OptionArrowUpWrap>
       </CurrentOptionWrap>
-      <OptionsListWrap listToggle={listToggle}>
+      <OptionsListWrap optionsHeight={`${menuElements.length * 20}px`} listToggle={listToggle}>
         {mapMenuElements}
       </OptionsListWrap>
     </DropdownWrap>

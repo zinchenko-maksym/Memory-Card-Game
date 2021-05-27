@@ -13,8 +13,8 @@ const SetWrap = styled.div`
 `;
 
 function Field({ myStore }) {
-  const mapCards = myStore.cardsReducer.cardsOrder.map((item) => (
-    <Card key={item} id={item} />
+  const mapCards = myStore.cardsReducer.cardsList.map((item) => (
+    <Card key={item.id} id={item.id} pairId={item.pairId} />
   ));
 
   return (
@@ -27,7 +27,15 @@ function Field({ myStore }) {
 Field.propTypes = {
   myStore: PropTypes.shape({
     cardsReducer: PropTypes.shape({
-      cardsOrder: PropTypes.arrayOf(PropTypes.number).isRequired,
+      cardsList: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number,
+          color: PropTypes.string,
+          figure: PropTypes.string,
+          pairId: PropTypes.number,
+          status: PropTypes.string,
+        }),
+      ).isRequired,
     }),
   }).isRequired,
 };

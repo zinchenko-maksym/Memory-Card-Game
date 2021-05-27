@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -13,6 +12,7 @@ const CardWrap = styled.div`
   position: relative;
   background-color: transparent;
   color: white;
+  margin: 10px;
 `;
 const CardBack = styled.div`
   position: absolute;
@@ -36,7 +36,7 @@ const CardFront = styled.div`
 `;
 
 function Card({
-  myStore, id, onFirstCardFlip, onSecondCardFlip, onVanishCards, onFlipCardsBack,
+  myStore, id, onFirstCardFlip, onSecondCardFlip, onVanishCards, onFlipCardsBack, pairId,
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isVanished, setIsVanished] = useState(false);
@@ -88,9 +88,9 @@ function Card({
 
   return (
     <CardWrap>
-      <CardBack isFlipped={isFlipped} isVanished={isVanished} onClick={flipCard}>{id}</CardBack>
+      <CardBack isFlipped={isFlipped} isVanished={isVanished} onClick={flipCard} />
       <CardFront isFlipped={isFlipped} isVanished={isVanished}>
-        {id}
+        {pairId}
       </CardFront>
     </CardWrap>
   );
@@ -102,7 +102,6 @@ Card.propTypes = {
       cardsList: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.number.isRequired,
-          color: PropTypes.string.isRequired,
           figure: PropTypes.string.isRequired,
           pairId: PropTypes.number.isRequired,
           status: PropTypes.string.isRequired,
@@ -116,6 +115,7 @@ Card.propTypes = {
     }),
   }).isRequired,
   id: PropTypes.number.isRequired,
+  pairId: PropTypes.number.isRequired,
   onFirstCardFlip: PropTypes.func.isRequired,
   onSecondCardFlip: PropTypes.func.isRequired,
   onVanishCards: PropTypes.func.isRequired,
