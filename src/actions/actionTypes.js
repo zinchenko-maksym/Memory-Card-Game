@@ -5,5 +5,5 @@ export const FLIP_SECOND_CARD_BACK = 'FLIP_SECOND_CARD_BACK';
 export const VANISH_CARDS = 'VANISH_CARDS';
 export const CHANGE_SETTINGS = 'CHANGE_SETTINGS';
 export const SET_CARDS_LIST = 'SET_CARDS_LIST';
-
+export const ADD_CARD_IMAGE = 'ADD_CARD_IMAGE';
 export default null;

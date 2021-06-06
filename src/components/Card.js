@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -5,6 +6,7 @@ import { connect } from 'react-redux';
 import {
   flipFirstCard, flipSecondCard, vanishCards, flipFirstCardBack, flipSecondCardBack,
 } from '../actions';
+import CardImage from './CardImage';
 
 const CardWrap = styled.div`
   width: 100px;
@@ -30,7 +32,7 @@ const CardFront = styled.div`
   width: 100%;
   height: 100%;
   transform: ${(props) => (props.isFlipped ? 'rotateY(0deg)' : 'rotateY(90deg)')};
-  background-color: ${(props) => props.theme.catalinaBlue};
+  background-color: white;
   transition: transform 0.4s ease-out 0.4s;
   transform-style: preserve-3d;
 `;
@@ -100,11 +102,10 @@ function Card({
       }, 1000);
     }
   }, [myStore.cardsReducer.vanishedCards]);
-
   return (
     <CardWrap>
       <CardFront isFlipped={isFlipped} isVanished={isVanished}>
-        {pairId}
+        <CardImage id={id} />
       </CardFront>
       <CardBack isFlipped={isFlipped} isVanished={isVanished} onClick={flipCard} />
     </CardWrap>
@@ -117,9 +118,7 @@ Card.propTypes = {
       cardsList: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.number.isRequired,
-          figure: PropTypes.string.isRequired,
           pairId: PropTypes.number.isRequired,
-          status: PropTypes.string.isRequired,
         }),
       ).isRequired,
       flippedCards: PropTypes.shape({

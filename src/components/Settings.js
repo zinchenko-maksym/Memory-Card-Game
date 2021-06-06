@@ -17,7 +17,6 @@ function Settings({ myStore }) {
   const difficulties = myStore.settingsReducer.difficulties.map((dif) => `${dif} Cards`);
   const [difficultyIndex, setDifficultyIndex] = useState(0);
   const [themeIndex, setThemeIndex] = useState(0);
-
   return (
     <SettingsWrap>
       <span>Difficulty(Cards):</span>

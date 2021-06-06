@@ -1,8 +1,14 @@
 const initialState = {
   difficultyIndex: 0,
   themeIndex: 0,
-  themes: ['Figures', 'Numbers', 'Anime', 'Animals'],
-  difficulties: [10, 12, 14, 16, 20],
+  themes: ['Figures', 'Anime', 'Animals'],
+  difficulties: [16, 24, 36, 50, 68],
+  difficultiesTrue: {
+    easy: 20,
+    medium: 30,
+    hard: 40,
+    expert: 50,
+  },
 };
 
 const settingsReducer = (state = initialState, action) => {
@@ -10,8 +16,8 @@ const settingsReducer = (state = initialState, action) => {
     case 'CHANGE_SETTINGS': {
       return {
         ...state,
-        difficultyIndex: action.difficultyIndex,
-        themeIndex: action.themeIndex,
+        difficultyIndex: action.payload.difficultyIndex,
+        themeIndex: action.payload.themeIndex,
       };
     }
     default:

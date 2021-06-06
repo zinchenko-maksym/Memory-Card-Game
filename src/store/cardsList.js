@@ -5,6 +5,7 @@ const initialState = {
     second: null,
   },
   vanishedCards: [],
+  cardImagesList: [],
 };
 
 const cardsReducer = (state = initialState, action) => {
@@ -60,6 +61,20 @@ const cardsReducer = (state = initialState, action) => {
       return {
         ...state,
         cardsList: action.payload.cards,
+        flippedCards: {
+          first: null,
+          second: null,
+        },
+        vanishedCards: [],
+        cardImagesList: [],
+      };
+    case 'ADD_CARD_IMAGE':
+      return {
+        ...state,
+        cardImagesList: [
+          ...state.cardImagesList,
+          { imageName: action.payload.imageName, pairId: action.payload.pairId },
+        ],
       };
     default:
       return state;

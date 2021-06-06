@@ -26,8 +26,8 @@ const OptionsListWrap = styled.div`
   margin: 10px 8px;
 `;
 const OptionsElementWrap = styled.div`
-height: 20px;
-text-align: left;
+  height: 20px;
+  text-align: left;
 `;
 const OptionArrowDownWrap = styled.div`
   display: ${(props) => (props.listToggle ? 'none' : 'flex')};

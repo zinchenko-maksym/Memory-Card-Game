@@ -6,6 +6,7 @@ import {
   FLIP_SECOND_CARD_BACK,
   CHANGE_SETTINGS,
   SET_CARDS_LIST,
+  ADD_CARD_IMAGE,
 } from './actionTypes';
 
 export const flipFirstCard = (content) => ({
@@ -48,6 +49,12 @@ export const changeSettings = (content) => ({
 });
 export const setCardsList = (content) => ({
   type: SET_CARDS_LIST,
+  payload: {
+    ...content,
+  },
+});
+export const addCardImage = (content) => ({
+  type: ADD_CARD_IMAGE,
   payload: {
     ...content,
   },

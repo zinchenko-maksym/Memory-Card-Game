@@ -1,8 +1,10 @@
+/* eslint-disable prefer-template */
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setCardsList } from '../actions';
+import { setCardsList, changeSettings } from '../actions';
+import { cardImages } from '../assets/images/ImportImages';
 
 const NewGameButtonWrap = styled.div`
   display: flex;
@@ -13,7 +15,7 @@ const NewGameButtonWrap = styled.div`
 `;
 
 function Settings({
-  myStore, onSetCardsList, difficultyIndex,
+  myStore, onSetCardsList, difficultyIndex, themeIndex, onChangeSettings,
 }) {
   function shuffleArray(array) {
     const arrayClone = [...array];
@@ -28,15 +30,32 @@ function Settings({
     const cardsSet = [];
     for (let i = 0; i < difficulty; i += 2) {
       const pairId = Math.random();
+      let imageSource = cardImages.anime['img' + (i / 2 + 1)];
+      if (myStore.settingsReducer.themes[themeIndex].toLowerCase() === 'anime') {
+        imageSource = cardImages.anime['img' + (i / 2 + 1)];
+      }
+      if (myStore.settingsReducer.themes[themeIndex].toLowerCase() === 'figures') {
+        imageSource = cardImages.figures['img' + (i / 2 + 1)];
+      }
+      if (myStore.settingsReducer.themes[themeIndex].toLowerCase() === 'animals') {
+        imageSource = cardImages.animals['img' + (i / 2 + 1)];
+      }
       cardsSet.push({
-        id: Math.random(), key: Math.random(), pairId, figure: 'a', status: 'default',
-      }); // Put Image property
+        id: Math.random(),
+        key: Math.random(),
+        pairId,
+        imageSource,
+      });
       cardsSet.push({
-        id: Math.random(), key: Math.random(), pairId, figure: 'a', status: 'default',
-      }); // Put Image property
+        id: Math.random(),
+        key: Math.random(),
+        pairId,
+        imageSource,
+      });
     }
     const shuffledCards = shuffleArray(cardsSet);
     onSetCardsList({ cards: shuffledCards });
+    onChangeSettings({ difficultyIndex, themeIndex });
   }
   useEffect(() => {
     startNewGame();
@@ -60,10 +79,13 @@ Settings.propTypes = {
     }),
     settingsReducer: PropTypes.shape({
       difficulties: PropTypes.arrayOf(PropTypes.number).isRequired,
+      themes: PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
   }).isRequired,
   onSetCardsList: PropTypes.func.isRequired,
+  onChangeSettings: PropTypes.func.isRequired,
   difficultyIndex: PropTypes.number.isRequired,
+  themeIndex: PropTypes.number.isRequired,
 };
 
 export default connect(
@@ -72,5 +94,6 @@ export default connect(
   }),
   {
     onSetCardsList: setCardsList,
+    onChangeSettings: changeSettings,
   },
 )(Settings);
