@@ -6,27 +6,27 @@ import useClickOutside from '../hooks/useClickOutside';
 const DropdownWrap = styled.div`
   display: flex;
   flex-flow: column wrap;
-  width: 200px;
+  width: 100%;
   cursor: pointer;
   user-select: none;
   margin: 10px 0;
-  box-sizing: border-box;
 `;
 const CurrentOptionWrap = styled.span`
   display: flex;
-  padding: 0 10px;
-  background-color: gray;
-  height: 20px;
+  padding: 5px 10px;
+  background-color: ${(props) => props.theme.forest};
+  border-radius: 10px 4px 0 0;
+
 `;
 const OptionsListWrap = styled.div`
   height: ${(props) => (props.listToggle ? props.optionsHeight : '0')};
+  background-color: ${(props) => props.theme.marine};
   overflow: hidden;
   transition: height 0.4s;
   flex-flow: column;
-  margin: 10px 8px;
 `;
 const OptionsElementWrap = styled.div`
-  height: 20px;
+  margin: 2px;
   text-align: left;
 `;
 const OptionArrowDownWrap = styled.div`
@@ -71,7 +71,7 @@ function Dropdown({ menuElements, selectedIndex, changeSelectedItem }) {
         <OptionArrowDownWrap listToggle={listToggle}> &#x25BC; </OptionArrowDownWrap>
         <OptionArrowUpWrap listToggle={listToggle}> &#x25B2; </OptionArrowUpWrap>
       </CurrentOptionWrap>
-      <OptionsListWrap optionsHeight={`${menuElements.length * 20}px`} listToggle={listToggle}>
+      <OptionsListWrap optionsHeight={`${menuElements.length * 1.3}em`} listToggle={listToggle}>
         {mapMenuElements}
       </OptionsListWrap>
     </DropdownWrap>

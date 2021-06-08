@@ -9,19 +9,27 @@ import {
 import CardImage from './CardImage';
 
 const CardWrap = styled.div`
-  width: 100px;
-  height:140px;
+  width: 50px;
+  height: 70px;
   position: relative;
-  background-color: transparent;
-  color: white;
-  margin: 10px;
+  margin: 6px;
+  border-radius: 4px;
+  overflow: hidden;
+  @media only screen and (min-width: 768px) {
+    width: 75px;
+    height: 105px;
+  }
+  @media only screen and (min-width: 1200px) {
+    width: 100px;
+    height: 140px;
+  }
 `;
 const CardBack = styled.div`
-  background-color: ${(props) => props.theme.pastelGreen};
+  background-color: ${(props) => props.theme.feather};
   width: 100%;
   height: 100%;
   transform: ${(props) => (props.isFlipped ? 'rotateY(90deg)' : 'rotateY(0)')}; 
-  transition: transform 0.4s ease-in 0s;
+  transition: ${(props) => (props.isFlipped ? 'transform 0.4s linear 0s' : 'transform 0.4s linear 0.4s')}; 
   transform-style: preserve-3d;
 `;
 const CardFront = styled.div`
@@ -29,12 +37,22 @@ const CardFront = styled.div`
   display: ${(props) => (props.isVanished ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 48px;
+  height: 68px;
+  border-radius: 4px;
+  overflow: hidden;
   transform: ${(props) => (props.isFlipped ? 'rotateY(0deg)' : 'rotateY(90deg)')};
   background-color: white;
-  transition: transform 0.4s ease-out 0.4s;
+  transition: ${(props) => (props.isFlipped ? 'transform 0.4s linear 0.4s' : 'transform 0.4s linear 0s')}; 
   transform-style: preserve-3d;
+  @media only screen and (min-width: 768px) {
+    width: 73px;
+    height: 103px;
+  }
+  @media only screen and (min-width: 1200px) {
+    width: 98px;
+    height: 138px;
+  }
 `;
 
 function Card({

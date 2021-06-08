@@ -7,10 +7,24 @@ import NewGameButton from './NewGameButton';
 
 const SettingsWrap = styled.div`
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   padding: 0;
-  width: 220px;
-  align-content: flex-start;
+  width: 90%;
+  max-width: 300px;
+  font-size: 1.2em;
+  margin: 20px auto;
+  @media only screen and (min-width: 1200px) {
+    margin-top: 0;
+    padding: 0 20px;
+    background-color: ${(props) => props.theme.silver};
+    height: 100%;
+  }
+  @media only screen and (min-width: 1920px) {
+    border-color: red;
+  }
+`;
+const SettingTitle = styled.div`
+margin-top: 40px;
 `;
 
 function Settings({ myStore }) {
@@ -19,13 +33,13 @@ function Settings({ myStore }) {
   const [themeIndex, setThemeIndex] = useState(0);
   return (
     <SettingsWrap>
-      <span>Difficulty(Cards):</span>
+      <SettingTitle>Difficulty(Cards):</SettingTitle>
       <Dropdown
         selectedIndex={difficultyIndex}
         changeSelectedItem={setDifficultyIndex}
         menuElements={difficulties}
       />
-      <span>Theme:</span>
+      <SettingTitle>Theme:</SettingTitle>
       <Dropdown
         menuElements={myStore.settingsReducer.themes}
         selectedIndex={themeIndex}

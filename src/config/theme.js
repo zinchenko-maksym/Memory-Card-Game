@@ -1,5 +1,5 @@
-export const catalinaBlue = '#05386B';
-export const lochinvar = '#379683';
-export const pastelGreen = '#5CDB95';
-export const algaeGreen = '#8EE4AF';
-export const loafer = '#EDF5E1';
+export const feather = '#77C9D4';
+export const marine = '#57BC90';
+export const forest = '#015249';
+export const silver = '#C0C0C0';
+export const gainsboro = '#DCDCDC';

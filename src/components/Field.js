@@ -4,12 +4,25 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Card from './Card';
 import Settings from './Settings';
+import GlobalStyle from '../config/globalStyle';
 
 const SetWrap = styled.div`
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
-  padding: 40px 10%;
+  align-items: flex-start;
+  @media only screen and (min-width: 1200px) {
+    height: 100%;
+    flex-flow: row nowrap;
+  }
+`;
+const CardsList = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 8px;
+  @media only screen and (min-width: 1200px) {
+    width: 100%;
+  }
 `;
 
 function Field({ myStore }) {
@@ -18,10 +31,13 @@ function Field({ myStore }) {
   );
 
   return (
-    <SetWrap className="field">
-      {mapCards}
-      <Settings />
-    </SetWrap>
+    <>
+      <GlobalStyle />
+      <SetWrap>
+        <CardsList>{mapCards}</CardsList>
+        <Settings />
+      </SetWrap>
+    </>
   );
 }
 Field.propTypes = {

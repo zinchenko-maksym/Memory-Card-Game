@@ -8,10 +8,20 @@ import { cardImages } from '../assets/images/ImportImages';
 
 const NewGameButtonWrap = styled.div`
   display: flex;
-  flex-flow: row wrap;
-  padding: 0;
+  background-color: ${(props) => props.theme.feather};
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin: 15px auto;
   width: 220px;
-  align-content: flex-start;
+  height: 30px;
+  box-shadow: 0px 5px 5px #97D1DA;
+  cursor: pointer;
+  &:hover{
+    box-shadow: none;
+    transform: translateY(2px);
+    background-color: #52C1D2;
+  }
 `;
 
 function Settings({
@@ -61,7 +71,7 @@ function Settings({
     startNewGame();
   }, []);
   return (
-    <NewGameButtonWrap onClick={startNewGame}><button type="submit"> Start a New Game! </button></NewGameButtonWrap>
+    <NewGameButtonWrap onClick={startNewGame}> Start a New Game! </NewGameButtonWrap>
   );
 }
 Settings.propTypes = {
